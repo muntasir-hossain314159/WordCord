@@ -8,21 +8,32 @@ export default function Home() {
   const [focusIndex, setFocusIndex] = useState(0);   
   const [focusValues, setFocusValues] = useState(updateFocusValues(0));
 
-  function updateFocusIndex() {
+  function updateFocus(character) {
     if(focusIndex !== 29) {
       setFocusIndex(focusIndex + 1);
-      setFocusValues(updateFocusValues(focusIndex + 1));
+      setFocusValues(updateFocusValues(focusIndex + 1, character));
     }
   }
 
-  function updateFocusValues(focusIndexParam) {
+  function updateFocusValues(focusIndexParam, character) {
     const localFocusValues = [];
     for (let index = 0; index < 30; index++) {
-      if(index === focusIndexParam) {
-        localFocusValues.push(true);
+      if(focusIndexParam === 0) {
+        if(index === 0) {
+          localFocusValues.push({value: "", isFocus: true});
+        }
+        else {
+          localFocusValues.push({value: "", isFocus: false});
+        }
+      }
+      else if(focusIndexParam - 1 >= 0 && focusIndexParam - 1 === index)  {
+          localFocusValues.push({value: character, isFocus: false});
+      }
+      else if (focusIndexParam === index) {
+        localFocusValues.push({value: "", isFocus: true});
       }
       else {
-        localFocusValues.push(false);
+        localFocusValues.push(focusValues[index]);
       }
     }
     return localFocusValues;
@@ -34,7 +45,7 @@ export default function Home() {
       var sliceIndex = (index - 1) * 5
       if(Math.ceil((focusIndex + 1) / 5) === index) {
         rows.push(
-          <Row key={uuidv4()} rowId={`row_${index}`} rowFocusValues={focusValues.slice(sliceIndex, sliceIndex + 5)} updateFocusIndex={updateFocusIndex} />
+          <Row key={uuidv4()} rowId={`row_${index}`} rowFocusValues={focusValues.slice(sliceIndex, sliceIndex + 5)} updateFocus={updateFocus} />
         );
       }
       else {

@@ -1,14 +1,17 @@
 import styles from "@/app/page.module.css"
 import { useEffect, useRef, useState } from "react";
 
-export default function Column({columnId, isFocus, updateFocusIndex}) {  
+export default function Column({columnId, isFocus, updateFocus, valueParam}) {  
   const inputRef = useRef(null);
   const [value, setValue] = useState('');
   
   function handleKeyDown(event) {
-    console.log(`Key pressed in ${columnId}: ${event.key}`);
-    setValue(event.key);
-    updateFocusIndex();
+    const alphabetRegex = /^[a-zA-Z]$/;
+    if (alphabetRegex.test(event.key)) { 
+      console.log(`Alphabet key pressed in ${columnId}: ${event.key}`);
+      setValue(event.key.toLowerCase());
+      updateFocus(event.key.toLowerCase());
+    }
   }
 
   useEffect(() => {
@@ -16,7 +19,10 @@ export default function Column({columnId, isFocus, updateFocusIndex}) {
       console.log(`${columnId} isFocused`);
       inputRef.current?.focus();
     }
-  })
+    else if (valueParam !== undefined) {
+      setValue(valueParam);
+    }
+  }, [columnId, isFocus, valueParam])
   
 
   return (

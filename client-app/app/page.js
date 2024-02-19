@@ -23,8 +23,8 @@ export default function Home() {
 
   function updateFocusIndex() {
     if(focusIndex !== 29) {
-      setFocusValues(updateFocusValues(focusIndex + 1));
       setFocusIndex(focusIndex + 1);
+      setFocusValues(updateFocusValues(focusIndex + 1));
     }
   }
 

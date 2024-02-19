@@ -8,6 +8,13 @@ export default function Home() {
   const [focusIndex, setFocusIndex] = useState(0);   
   const [focusValues, setFocusValues] = useState(updateFocusValues(0));
 
+  function updateFocusIndex() {
+    if(focusIndex !== 29) {
+      setFocusIndex(focusIndex + 1);
+      setFocusValues(updateFocusValues(focusIndex + 1));
+    }
+  }
+
   function updateFocusValues(focusIndexParam) {
     const localFocusValues = [];
     for (let index = 0; index < 30; index++) {
@@ -19,13 +26,6 @@ export default function Home() {
       }
     }
     return localFocusValues;
-  }
-
-  function updateFocusIndex() {
-    if(focusIndex !== 29) {
-      setFocusIndex(focusIndex + 1);
-      setFocusValues(updateFocusValues(focusIndex + 1));
-    }
   }
 
   function renderRows() {

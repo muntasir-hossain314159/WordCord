@@ -3,9 +3,9 @@ import Column from "../column/column";
 import { useRef, useState } from 'react';
 
 export default function Row({rowId, currentRowNumber}) {
-    const checker = "apple"
     const rowValueRef = useRef("");
     const [isCompleteRow, setIsCompleteRow] = useState(false);
+    let checker = "apple";
 
     function updateIsCompleteRow() {
         console.log("Complete Row: " + rowValueRef.current);
@@ -19,16 +19,19 @@ export default function Row({rowId, currentRowNumber}) {
 
     function renderColumns() {
         const columns = [];
-
         for (let index = 1; index <= 5; index++) {
             if(isCompleteRow) {
                 let boxStyle = {};
 
                 if(rowValueRef.current[index-1] === checker[index-1]) {
-                    boxStyle = {"backgroundColor": "#283618"}
+                    boxStyle = {"backgroundColor": "#283618"};
+                    checker = checker.replace(rowValueRef.current[index-1], " ");
+                    console.log("Checker: " + checker);
                 }
                 else if (checker.includes(rowValueRef.current[index-1])) {
                     boxStyle = {"backgroundColor": "#bc6c25", "color": "black"}
+                    checker = checker.replace(rowValueRef.current[index-1], " ");
+                    console.log("Checker: " + checker);
                 }
                 else {
                     boxStyle = {"backgroundColor": "#fefae0", "color": "black"}

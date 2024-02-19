@@ -21,11 +21,11 @@ export default function Home() {
           setCurrentColumnNumber(1);
         }
         else if(currentColumnNumber === 5 && currentRowNumber < 6) {
-          setCurrentColumnNumber(c => 1);
-          setCurrentRowNumber(r => r + 1);
+          setCurrentColumnNumber(1);
+          setCurrentRowNumber(currentRowNumber + 1);
         }
         else {
-          setCurrentColumnNumber(c => c + 1);
+          setCurrentColumnNumber(currentColumnNumber + 1);
         }
       };
     }

@@ -32,6 +32,3 @@ export default function Column({columnId, currentRowNumber, currentColumnNumber,
     </div>
   );
 }
-
-{/* <input type="text" className={styles.input} disabled/> */}
-

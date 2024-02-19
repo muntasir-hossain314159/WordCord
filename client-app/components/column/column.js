@@ -1,47 +1,37 @@
 import styles from "@/app/page.module.css"
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 
-export default function Column({columnId, currentRowNumber, currentColumnNumber}) {  
-  const inputRef = useRef(null);
-  const [value, setValue] = useState('');
-  
-  function handleKeyDown(event) {
-    const alphabetRegex = /^[a-zA-Z]$/;
-    if (alphabetRegex.test(event.key)) { 
-      console.log(`Alphabet key pressed in ${columnId}: ${event.key}`);
+export default function Column({columnId, currentRowNumber, currentColumnNumber, updateRowNumber, updateColumnNumber, value}) {  
+  useEffect(() => {
 
-      setValue(event.key.toLowerCase());
-
+    if(columnId === `row_1_column_1` && currentRowNumber === undefined && currentColumnNumber === undefined) {
+      updateRowNumber(1);
+      updateColumnNumber(1);
+      console.log('initial row and column');
+    }
+    else if (currentRowNumber === undefined || currentColumnNumber === undefined) {
+      console.log('undefined')
+    }
+    else if (value !== ''){
       if(currentColumnNumber === 5 && currentRowNumber < 6) {
-        currentRowNumber = currentRowNumber + 1;
-        currentColumnNumber = 1;
+        console.log(currentRowNumber);
+        updateColumnNumber(1);
+        updateRowNumber(currentRowNumber + 1);
+        console.log("updated row and column");
       }
       else {
-        currentColumnNumber = currentColumnNumber + 1;
-      }
-
-      const nextInputField = document.getElementById(`input_row_${currentRowNumber}_column_${currentColumnNumber}`)
-      if (nextInputField !== null) {
-        nextInputField.focus();
+        updateColumnNumber(currentColumnNumber + 1);
+        console.log("updated column")
       }
     }
-  }
-
-  useEffect(() => {
-    if (currentRowNumber === 1 && currentColumnNumber === 1)
-    {
-      inputRef.current?.focus();
-    }
-  }, [currentRowNumber, currentColumnNumber])
-
+  }, []);
+  
   return (
     <div className="col col-auto" id={columnId}>
-        <div className={styles.box} id={`box_${columnId}`}>
-          <input tabIndex={-1} type="text" className={styles.input} ref={inputRef} value={value} onKeyDown={handleKeyDown} readOnly id={`input_${columnId}`}/>
-        </div>
+        <div className={styles.box} id={`box_${columnId}`}>{value}</div>
     </div>
   );
 }
 
-
+{/* <input type="text" className={styles.input} disabled/> */}
 

@@ -1,8 +1,7 @@
 import styles from "@/app/page.module.css"
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function Column({columnId, currentRowNumber, currentColumnNumber, updateRowValue, updateIsCompleteRow, columnValueParam, boxStyle}) {  
-  const inputRef = useRef(null);
+export default function Column({columnId, currentRowNumber, currentColumnNumber, updateRowValue, updateIsCompleteRow, columnValueParam, boxStyle, inputRefs}) {  
   const [columnValue, setColumnValue] = useState('');
   
   function handleKeyDown(event) {
@@ -24,7 +23,7 @@ export default function Column({columnId, currentRowNumber, currentColumnNumber,
         currentColumnNumber = currentColumnNumber + 1;
       }
 
-      const nextInputField = document.getElementById(`input_row_${currentRowNumber}_column_${currentColumnNumber}`)
+      const nextInputField = inputRefs.current.get(`input_row_${currentRowNumber}_column_${currentColumnNumber}`)
       if (nextInputField !== null) {
         console.log("Next Field: " + columnId);
         nextInputField.focus();
@@ -35,15 +34,30 @@ export default function Column({columnId, currentRowNumber, currentColumnNumber,
   useEffect(() => {
     if (currentRowNumber === 1 && currentColumnNumber === 1)
     {
-      inputRef.current?.focus();
+      inputRefs.current.get(`input_row_${currentRowNumber}_column_${currentColumnNumber}`).focus();
     }
-  }, [currentRowNumber, currentColumnNumber])
+  }, [currentRowNumber, currentColumnNumber, inputRefs])
 
   if(columnValueParam === undefined) {
     return (
       <div className="col col-auto" id={columnId} >
         <div className={styles.box} id={`box_${columnId}`} >
-          <input tabIndex={-1} type="text" className={styles.input} ref={inputRef} value={columnValue} onKeyDown={handleKeyDown} readOnly id={`input_${columnId}`}/>
+          <input 
+            tabIndex={-1} 
+            type="text" 
+            className={styles.input} 
+            id={`input_${columnId}`}
+            ref={element => {
+              if(element) {
+                inputRefs.current.set(`input_${columnId}`, element);
+              }
+              else {
+                inputRefs.current.delete(`input_${columnId}`);
+              }
+            }} 
+            value={columnValue} 
+            onKeyDown={handleKeyDown} 
+            readOnly />
         </div>
       </div>
     )

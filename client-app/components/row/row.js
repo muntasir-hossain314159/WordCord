@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Column from "../column/column";
 import { useRef, useState } from 'react';
 
-export default function Row({rowId, currentRowNumber}) {
+export default function Row({rowId, currentRowNumber, inputRefs}) {
     const rowValueRef = useRef("");
     const [isCompleteRow, setIsCompleteRow] = useState(false);
     let checker = "apple";
@@ -38,12 +38,12 @@ export default function Row({rowId, currentRowNumber}) {
                 }
 
                 columns.push(
-                    <Column key={uuidv4()} columnId={`${rowId}_column_${index}`} columnValueParam={rowValueRef.current[index-1]} boxStyle={boxStyle}/>
+                    <Column key={uuidv4()} columnId={`${rowId}_column_${index}`} columnValueParam={rowValueRef.current[index-1]} boxStyle={boxStyle} />
                 );
             }
             else {
                 columns.push(
-                    <Column key={uuidv4()} columnId={`${rowId}_column_${index}`} currentRowNumber={currentRowNumber} currentColumnNumber={index} updateRowValue={updateRowValue} updateIsCompleteRow={updateIsCompleteRow}/>
+                    <Column key={uuidv4()} columnId={`${rowId}_column_${index}`} currentRowNumber={currentRowNumber} currentColumnNumber={index} updateRowValue={updateRowValue} updateIsCompleteRow={updateIsCompleteRow} inputRefs={inputRefs}/>
                 );
             }
         }

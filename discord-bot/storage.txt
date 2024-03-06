@@ -1,0 +1,52 @@
+//-----------index.js-----------
+
+// Require the necessary discord.js classes
+const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
+const pingCommand = require('./commands/utility/ping');
+const dotenv = require('dotenv');
+
+dotenv.config();
+
+// Create a new client instance
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+
+// When the client is ready, run this code (only once).
+// The distinction between `client: Client<boolean>` and `readyClient: Client<true>` is important for TypeScript developers.
+// It makes some properties non-nullable.
+client.once(Events.ClientReady, readyClient => {
+	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
+});
+
+client.on(Events.InteractionCreate, async interaction => pingCommand.execute(interaction))
+
+// Log in to Discord with your client's token
+client.login(process.env.DISCORD_TOKEN);
+
+//-----------deploy-command.js-----------
+
+const { REST, Routes } = require('discord.js');
+const pingCommand = require('./commands/utility/ping');
+const dotenv = require('dotenv');
+
+dotenv.config();
+
+// Construct and prepare an instance of the REST module
+const rest = new REST().setToken(process.env.DISCORD_TOKEN);
+
+// and deploy your commands!
+(async () => {
+	try {
+		console.log(`Application (/) commands.`);
+
+		// The put method is used to fully refresh all commands in the guild with the current set
+		const data = await rest.put(
+			Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID),
+			{ body: [pingCommand.data.toJSON()] },
+		);
+
+		console.log(`Successfully reloaded application (/) commands.`);
+	} catch (error) {
+		// And of course, make sure you catch and log any errors!
+		console.error(error);
+	}
+})();

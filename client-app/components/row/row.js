@@ -2,10 +2,9 @@ import { v4 as uuidv4 } from 'uuid';
 import Column from "../column/column";
 import { useRef, useState } from 'react';
 
-export default function Row({rowId, currentRowNumber, inputRefs}) {
+export default function Row({rowId, currentRowNumber, inputRefs, checker}) {
     const rowValueRef = useRef("");
     const [isCompleteRow, setIsCompleteRow] = useState(false);
-    let checker = "apple";
 
     function updateIsCompleteRow() {
         console.log("Complete Row: " + rowValueRef.current);

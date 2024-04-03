@@ -7,32 +7,32 @@ import { useEffect, useRef, useState } from "react";
 export default function Home() {
 
   const inputRefs = useRef(new Map())
-  const [checker, setChecker] = useState("");
+  const [wordcord, setWordcord] = useState("");
 
   function renderRows() {
     const rows = [];
     for (let index = 1; index <= 6; index++) {
         rows.push(
-          <Row key={uuidv4()} rowId={`row_${index}`} currentRowNumber={index} inputRefs={inputRefs} checker={checker}/>
+          <Row key={uuidv4()} rowId={`row_${index}`} currentRowNumber={index} inputRefs={inputRefs} wordcord={wordcord}/>
         );
     }
     return rows;
   }
 
   useEffect(() => {
-    async function fetchCheckerFromDatabase() {
+    async function fetchDailyWordcordFromDatabase() {
       console.log("Calling Fetch");
       const response = await fetch("/api/wordcord");
       if(response.ok) {
         const wordcordResponse = await response.json();
-        console.log(`Fetched WordCord: ${wordcordResponse.wordcord}`);
-        setChecker(wordcordResponse.wordcord);
+        console.log(`Fetched Daily WordCord: ${wordcordResponse.wordcord}`);
+        setWordcord(wordcordResponse.wordcord);
       }
       else {
         console.log("Error Fetching WordCord");
       }
     }
-    fetchCheckerFromDatabase();
+    fetchDailyWordcordFromDatabase();
   }, []);
 
 

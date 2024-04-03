@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Column from "../column/column";
 import { useRef, useState } from 'react';
 
-export default function Row({rowId, currentRowNumber, inputRefs, checker}) {
+export default function Row({rowId, currentRowNumber, inputRefs, wordcord}) {
     const rowValueRef = useRef("");
     const [isCompleteRow, setIsCompleteRow] = useState(false);
 
@@ -22,15 +22,15 @@ export default function Row({rowId, currentRowNumber, inputRefs, checker}) {
             if(isCompleteRow) {
                 let boxStyle = {};
 
-                if(rowValueRef.current[index-1] === checker[index-1]) {
+                if(rowValueRef.current[index-1] === wordcord[index-1]) {
                     boxStyle = {"backgroundColor": "#283618"};
-                    checker = checker.replace(rowValueRef.current[index-1], " ");
-                    console.log("Checker: " + checker);
+                    wordcord = wordcord.replace(rowValueRef.current[index-1], " ");
+                    console.log("WordCord: " + wordcord);
                 }
-                else if (checker.includes(rowValueRef.current[index-1])) {
+                else if (wordcord.includes(rowValueRef.current[index-1])) {
                     boxStyle = {"backgroundColor": "#bc6c25", "color": "black"}
-                    checker = checker.replace(rowValueRef.current[index-1], " ");
-                    console.log("Checker: " + checker);
+                    wordcord = wordcord.replace(rowValueRef.current[index-1], " ");
+                    console.log("WordCord: " + wordcord);
                 }
                 else {
                     boxStyle = {"backgroundColor": "#fefae0", "color": "black"}

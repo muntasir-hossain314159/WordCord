@@ -22,13 +22,13 @@ export async function GET(request) {
         await mongoClient.db("admin").command({ ping: 1 });
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     
-        const collection = mongoClient.db("discord").collection("wordcord_suggestions");
-        const wordcordDocuments = await collection.aggregate([{$sample:{size:1}}]).toArray();
+        const collection = mongoClient.db("discord").collection("daily_wordcord");
+        const wordcordDocuments = await collection.find().toArray();
         if (wordcordDocuments.length != 1) {
             return NextResponse.json("Internal Error", { status: 500, statusText: "Internal Error" });
         }
         const wordcord = wordcordDocuments[0].word;
-        console.log(`Successfully retrieved WordCord suggestion: ${wordcord}!`);
+        console.log(`Successfully retrieved daily WordCord: ${wordcord}!`);
         return NextResponse.json({wordcord});
     } finally {
         // Ensures that the client will close when you finish/error

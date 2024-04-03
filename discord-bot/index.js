@@ -1,8 +1,11 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
+const scheduler = require("./scheduler");
 const dotenv = require('dotenv');
 dotenv.config();
+
+scheduler();
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
@@ -40,12 +43,3 @@ for (const file of eventFiles) {
 }
 
 client.login(process.env.DISCORD_TOKEN);
-
-  //import { schedule } from "node-schedule";
-
-  // const rule = new schedule.RecurrenceRule();
-  // rule.hour = 0;
-  // rule.minute = 0;
-  // rule.tz = 'America/Chicago';
-
-  // const job = schedule.scheduleJob(rule, fetchCheckerFromDatabase);

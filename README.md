@@ -1,23 +1,18 @@
 # WordCord
 WordCord is a fun and interactive game built for Discord communities, bringing the popular Wordle game directly to your server. Developed with Next.js and Node.js, this project allows users to guess a word suggested by other members of the community, fostering engagement and excitement within your Discord server.
 
-# Features
-Wordle Gameplay: Enjoy the classic gameplay of Wordle within your Discord server. Users can guess the hidden word based on suggestions provided by other community members.
-
-Interactive Interface: A user-friendly interface designed for seamless interaction, making it easy for players to input their guesses and see their progress.
-
-Real-Time Updates: Stay up-to-date with real-time updates on the game's progress. See which letters have been guessed correctly, helping players to narrow down their options and solve the word.
-
-Community Engagement: Encourage community participation by allowing members to suggest words for others to guess. This fosters collaboration and camaraderie among your Discord members.
-
-Customizable Settings: Tailor the game experience to suit your community's preferences with customizable settings. Adjust parameters such as the difficulty level, word length, and more.
+# Implementation
+Recreated the Wordle game using Next.js and integrated it with a Discord bot.\
+The Discord bot was built using Node.js, and it was configured with slash commands to enable users to submit 5-letter words which are subsequently stored in a MongoDB database.\
+The server then executes a daily Cron job to randomly select a word from the database and update the daily WordCord prompt.
 
 # Installation
 ## To setup WordCord
 * Git clone the repository
 * Run `npm install` in the client-app folder
 * Create a .env file in the client-app folder
-* Set up a MongoDB Atlas database and set `MONGO_DB_URI=<connection_string>` in the .env file
+* Set up a MongoDB Atlas database and obtain the connection string for Node.js driver
+* Set `MONGO_DB_URI=<connection_string>` in the .env file
 * Run `npm run dev` to run the Next.js WordCord application
 ## To setup the Discord Bot
 * Run `npm install` in the discord-bot folder

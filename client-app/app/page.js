@@ -40,7 +40,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <h1>
-        Wordle for Discord
+        WordCord
       </h1>
       <div className="container mt-5">
         {renderRows()}

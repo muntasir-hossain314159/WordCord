@@ -13,13 +13,32 @@ Community Engagement: Encourage community participation by allowing members to s
 Customizable Settings: Tailor the game experience to suit your community's preferences with customizable settings. Adjust parameters such as the difficulty level, word length, and more.
 
 # Installation
-To install WordCord on your Discord server, follow these steps:
-
+## To setup WordCord
+* Git clone the repository
+* Run `npm install` in the client-app folder
+* Create a .env file in the client-app folder
+* Set up a MongoDB Atlas database and set `MONGO_DB_URI=<connection_string>` in the .env file
+* Run `npm run dev` to run the Next.js WordCord application
+## To setup the Discord Bot
+* Run `npm install` in the discord-bot folder
+* [Follow the instructions here to set up a Discord Bot in the Developer Portal](https://discordjs.guide/preparations/setting-up-a-bot-application.html)
+* Create a .env file in the discord-bot folder
+* Copy the generated bot token and set `DISCORD_TOKEN=<token>` in the .env file
+* [Follow the instructions here to obtain the Client ID and Guid ID to register slash commands](https://discordjs.guide/creating-your-bot/command-deployment.html#command-registration)
+* Set the `CLIENT_ID=<client id>` and `GUILD_ID=<guild id>` in the .env file
+* Set  `MONGO_DB_URI=<connection_string>` in the .env file for the MongoDB Atlas databse created in the WordCord installation
+* Run `npm run start` to run the Discord Bot
+  
 Enjoy playing Wordle with your community!
 
+# Next Steps
+* Integrate keyboard in the user interface
+* Streamline the installation process using Docker
+* Publish the Discord Bot
+* Deploy the application on Vercel
 
 # License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 # Acknowledgements
-WordCord was inspired by the original Wordle game and the desire to bring its fun and interactive gameplay to Discord communities.
+WordCord was inspired by the original Wordle game.

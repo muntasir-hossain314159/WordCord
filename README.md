@@ -1,6 +1,13 @@
 # WordCord
 WordCord is a fun and interactive game built for Discord communities, bringing the popular Wordle game directly to your server. Developed with Next.js and Node.js, this project allows users to guess a word suggested by other members of the community, fostering engagement and excitement within your Discord server.
 
+<p align="center">
+    <img src="WordCord_UI.JPG">
+</p>
+
+<img src="Discord_Bot.JPG">
+<img src="WordCord_Database.JPG">
+
 # Implementation
 Recreated the Wordle game using Next.js and integrated it with a Discord bot.\
 The Discord bot was built using Node.js, and it was configured with slash commands to enable users to submit 5-letter words which are subsequently stored in a MongoDB database.\
